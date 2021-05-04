@@ -22,14 +22,17 @@ class _HomePageState extends State<HomePage> {
   double drillPipeLength;
   double drillPipeWidth;
   double openHoleSectionHeight;
-  double openHoleSectionWidth;
+  double openHoleSectionID;
   double casingLength;
-  double casingWidth;
+  double casingOD;
+  double casingID;
   double drillPipeOpenHoleHeight;
   double heavyWeightDrillPipeHeight;
-  double heavyWeightDrillPipeWidth;
+  double heavyWeightDrillPipeID;
+  double heavyWeightDrillPipeOD;
   double drillCollarHeight;
-  double drillCollarWidth;
+  double drillCollarID;
+  double drillCollarOD;
   double influxLength;
 
 
@@ -45,14 +48,17 @@ class _HomePageState extends State<HomePage> {
         drillPipeLength: drillPipeLength,
         drillPipeWidth: drillPipeWidth,
         openHoleSectionHeight: openHoleSectionHeight,
-        openHoleSectionWidth: openHoleSectionWidth,
+        openHoleSectionID: openHoleSectionID,
         casingLength: casingLength,
-        casingWidth: casingWidth,
+        casingID: casingID,
+        casingOD: casingOD,
         drillPipeOpenHoleHeight: drillPipeOpenHoleHeight,
-        heavyWeightDrillPipeLength: heavyWeightDrillPipeHeight,
-        heavyWeightDrillPipeWidth: heavyWeightDrillPipeWidth,
-        drillCollarLength: drillCollarHeight,
-        drillCollarWidth: drillCollarWidth,
+        heavyWeightDrillPipeHeight: heavyWeightDrillPipeHeight,
+        heavyWeightDrillPipeID: heavyWeightDrillPipeID,
+        heavyWeightDrillPipeOD: heavyWeightDrillPipeOD,
+        drillCollarHeight: drillCollarHeight,
+        drillCollarID: drillCollarID,
+        drillCollarOD: drillCollarOD,
         influxLength: influxLength,
     );
     setState(() {
@@ -81,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                     height: downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.openHoleSectionHeight,
-                    width: downholeConfig.casingWidth + downholeConfig.chokeLineHLength*2,
+                    width: downholeConfig.casingID + downholeConfig.chokeLineHLength*2,
                     child: CustomPaint(
                       painter: DownholePainter(
                         downholeConfig: downholeConfig
@@ -112,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                   DownholeConfigBox(
                     title: "Downhole Width Scale Factor",
                     subTitle: "Multiplier use to scale",
-                    hintText: "2",
+                    hintText: "5",
                     configData: (s){
                       widthScaleFactor = s == "" ? null : double.parse(s);
                       updateDownhole();
@@ -146,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   DownholeConfigBox(
-                    title: "Chokeline Inner Diameter",
+                    title: "Chokeline ID",
                     subTitle: "In Inch",
                     hintText: "3",
                     configData: (s){
@@ -155,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   DownholeConfigBox(
-                    title: "Riser inner diameter",
+                    title: "Riser ID",
                     subTitle: "In Inch",
                     hintText: "50",
                     configData: (s){
@@ -173,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   DownholeConfigBox(
-                    title: "Casing length",
+                    title: "Casing height",
                     subTitle: "In Feet",
                     hintText: "4000",
                     configData: (s){
@@ -182,36 +188,36 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   DownholeConfigBox(
-                    title: "Casing width",
+                    title: "Casing ID",
                     subTitle: "In Inch",
-                    hintText: "20",
+                    hintText: "9.95",
                     configData: (s){
-                      casingWidth = s == "" ? null : double.parse(s);
+                      casingID = s == "" ? null : double.parse(s);
                       updateDownhole();
                     },
                   ),
                   DownholeConfigBox(
-                    title: "Open hole section height",
-                    subTitle: "In Feet",
-                    hintText: "4400",
+                    title: "Casing OD",
+                    subTitle: "In Inch",
+                    hintText: "10.75",
                     configData: (s){
-                      openHoleSectionHeight = s == "" ? null : double.parse(s);
+                      casingOD = s == "" ? null : double.parse(s);
                       updateDownhole();
                     },
                   ),
                   DownholeConfigBox(
-                    title: "Open hole section width",
+                    title: "Open hole section ID",
                     subTitle: "In Inch",
-                    hintText: "2",
+                    hintText: "8.5",
                     configData: (s){
-                      openHoleSectionWidth = s == "" ? null : double.parse(s);
+                      openHoleSectionID = s == "" ? null : double.parse(s);
                       updateDownhole();
                     },
                   ),
                   DownholeConfigBox(
-                    title: "Drillpipe inner diameter",
+                    title: "Drillpipe ID",
                     subTitle: "In Inch",
-                    hintText: "5",
+                    hintText: "4.276",
                     configData: (s){
                       drillPipeWidth = s == "" ? null : double.parse(s);
                       updateDownhole();
@@ -236,11 +242,20 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   DownholeConfigBox(
-                    title: "Heavy Weight Drill Pipe width",
+                    title: "Heavy Weight Drill Pipe ID",
                     subTitle: "In Inch",
-                    hintText: "1",
+                    hintText: "3.5",
                     configData: (s){
-                      heavyWeightDrillPipeWidth = s == "" ? null : double.parse(s);
+                      heavyWeightDrillPipeID = s == "" ? null : double.parse(s);
+                      updateDownhole();
+                    },
+                  ),
+                  DownholeConfigBox(
+                    title: "Heavy Weight Drill Pipe OD",
+                    subTitle: "In Inch",
+                    hintText: "5.5",
+                    configData: (s){
+                      heavyWeightDrillPipeOD = s == "" ? null : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -254,11 +269,20 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   DownholeConfigBox(
-                    title: "Drill Collar width",
+                    title: "Drill Collar ID",
                     subTitle: "In Inch",
-                    hintText: "2",
+                    hintText: "2.78",
                     configData: (s){
-                      drillCollarWidth = s == "" ? null : double.parse(s);
+                      drillCollarID = s == "" ? null : double.parse(s);
+                      updateDownhole();
+                    },
+                  ),
+                  DownholeConfigBox(
+                    title: "Drill Collar OD",
+                    subTitle: "In Inch",
+                    hintText: "6.25",
+                    configData: (s){
+                      drillCollarOD = s == "" ? null : double.parse(s);
                       updateDownhole();
                     },
                   )

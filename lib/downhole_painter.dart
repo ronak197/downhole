@@ -18,79 +18,124 @@ class DownholePainter extends CustomPainter {
       ..relativeLineTo(0.0, downholeConfig.chokeLineVLength)
       ..relativeLineTo(downholeConfig.chokeLineHLength, 0)
       ..relativeLineTo(0, downholeConfig.casingLength)
-      ..relativeMoveTo(downholeConfig.casingWidth, 0)
+      ..relativeMoveTo(downholeConfig.casingID, 0)
       ..relativeLineTo(0, -downholeConfig.casingLength)
       ..relativeLineTo(downholeConfig.chokeLineHLength, 0)
       ..relativeLineTo(0, -downholeConfig.chokeLineVLength)
       ..moveTo(downholeConfig.chokeLineDiameter, 0)
       ..relativeLineTo(0, downholeConfig.chokeLineVLength - downholeConfig.chokeLineDiameter)
-      ..relativeLineTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingWidth - downholeConfig.riserInnerDiameter - downholeConfig.chokeLineDiameter*2)/2, 0)
+      ..relativeLineTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingID - downholeConfig.riserInnerDiameter - downholeConfig.chokeLineDiameter*2)/2, 0)
       ..relativeMoveTo(downholeConfig.riserInnerDiameter, 0)
-      ..relativeLineTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingWidth - downholeConfig.riserInnerDiameter - downholeConfig.chokeLineDiameter*2)/2, 0)
+      ..relativeLineTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingID - downholeConfig.riserInnerDiameter - downholeConfig.chokeLineDiameter*2)/2, 0)
       ..relativeLineTo(0, -downholeConfig.chokeLineVLength + downholeConfig.chokeLineDiameter);
+
+    Path casingThicknessPath = Path()
+      ..moveTo(0.0, 0.0)
+      ..relativeMoveTo(0.0, downholeConfig.chokeLineVLength)
+      ..relativeMoveTo(downholeConfig.chokeLineHLength, 0)
+      ..relativeLineTo(0, downholeConfig.casingLength)
+      ..relativeLineTo(-downholeConfig.casingThickness,  0)
+      ..relativeLineTo(0, -downholeConfig.casingLength)
+      ..close()
+      ..relativeMoveTo(downholeConfig.casingID + downholeConfig.casingThickness, 0)
+      ..relativeLineTo(downholeConfig.casingThickness, 0)
+      ..relativeLineTo(0, downholeConfig.casingLength)
+      ..relativeLineTo(-downholeConfig.casingThickness, 0)
+      ..close();
+
+    Path killLineBlocker = Path()
+      ..moveTo(0.0, 0.0)
+      ..relativeLineTo(0.0, downholeConfig.killLineBlockerHeight)
+      ..relativeLineTo(downholeConfig.chokeLineDiameter, 0.0)
+      ..relativeLineTo(0.0, -downholeConfig.killLineBlockerHeight)
+      ..close();
 
 
     Path riserPath = Path()
-      ..moveTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingWidth - downholeConfig.riserInnerDiameter)/2, 0)
+      ..moveTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingID - downholeConfig.riserInnerDiameter)/2, 0)
       ..relativeLineTo(0, downholeConfig.chokeLineVLength - downholeConfig.chokeLineDiameter)
-      ..moveTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingWidth - downholeConfig.riserInnerDiameter)/2 + downholeConfig.riserInnerDiameter, 0)
+      ..moveTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingID - downholeConfig.riserInnerDiameter)/2 + downholeConfig.riserInnerDiameter, 0)
       ..relativeLineTo(0, downholeConfig.chokeLineVLength - downholeConfig.chokeLineDiameter);
 
     Path openHoleSectionPath = Path()
-      ..moveTo(downholeConfig.chokeLineHLength, downholeConfig.chokeLineVLength + downholeConfig.casingLength)
+      ..moveTo(downholeConfig.chokeLineHLength - downholeConfig.casingThickness, downholeConfig.chokeLineVLength + downholeConfig.casingLength)
       ..relativeLineTo(0, downholeConfig.openHoleSectionHeight)
-      ..relativeLineTo(downholeConfig.openHoleSectionWidth, 0)
+      ..relativeLineTo(downholeConfig.openHoleSectionThickness, 0)
       ..relativeLineTo(0, -downholeConfig.openHoleSectionHeight)
       ..close()
-      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingWidth - downholeConfig.openHoleSectionWidth, downholeConfig.chokeLineVLength + downholeConfig.casingLength)
+      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingID + downholeConfig.casingThickness, downholeConfig.chokeLineVLength + downholeConfig.casingLength)
       ..relativeLineTo(0, downholeConfig.openHoleSectionHeight)
-      ..relativeLineTo(downholeConfig.openHoleSectionWidth, 0)
+      ..relativeLineTo(-downholeConfig.openHoleSectionThickness, 0)
       ..relativeLineTo(0, -downholeConfig.openHoleSectionHeight)
       ..close();
 
     Path riserBlocker = Path()
-      ..moveTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingWidth - downholeConfig.riserInnerDiameter)/2, downholeConfig.chokeLineVLength - downholeConfig.chokeLineDiameter)
+      ..moveTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingID - downholeConfig.riserInnerDiameter)/2, downholeConfig.chokeLineVLength - downholeConfig.chokeLineDiameter)
       ..relativeLineTo(downholeConfig.riserBlockerWidth, 0)
       ..relativeLineTo(0, -downholeConfig.riserBlockerHeight)
       ..relativeLineTo(-downholeConfig.riserBlockerWidth, 0)
-      ..moveTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingWidth - downholeConfig.riserInnerDiameter)/2  + downholeConfig.riserInnerDiameter - downholeConfig.riserBlockerWidth, downholeConfig.chokeLineVLength - downholeConfig.chokeLineDiameter)
+      ..moveTo((downholeConfig.chokeLineHLength*2 + downholeConfig.casingID - downholeConfig.riserInnerDiameter)/2  + downholeConfig.riserInnerDiameter - downholeConfig.riserBlockerWidth, downholeConfig.chokeLineVLength - downholeConfig.chokeLineDiameter)
       ..relativeLineTo(downholeConfig.riserBlockerWidth, 0)
       ..relativeLineTo(0, -downholeConfig.riserBlockerHeight)
       ..relativeLineTo(-downholeConfig.riserBlockerWidth, 0)
       ..close();
 
     Path drillPipePath = Path()
-      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingWidth/2 - downholeConfig.drillPipeWidth/2, 0)
+      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingID/2 - downholeConfig.drillPipeWidth/2, 0)
       ..relativeLineTo(0, downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
       ..relativeMoveTo(downholeConfig.drillPipeWidth, 0)
       ..relativeLineTo(0, -(downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight));
 
     Path hwdpPath = Path()
-      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingWidth/2 - downholeConfig.drillPipeWidth/2, downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
-      ..relativeMoveTo(downholeConfig.heavyWeightDrillPipeWidth/2, 0)
-      ..relativeLineTo(-downholeConfig.heavyWeightDrillPipeWidth, 0)
+      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingID/2 - downholeConfig.drillPipeWidth/2, downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
+      ..relativeMoveTo(downholeConfig.heavyWeightDrillPipeThickness/2, 0)
+      ..relativeLineTo(-downholeConfig.heavyWeightDrillPipeThickness, 0)
       ..relativeLineTo(0, downholeConfig.heavyWeightDrillPipeHeight)
-      ..relativeLineTo(downholeConfig.heavyWeightDrillPipeWidth, 0)
+      ..relativeLineTo(downholeConfig.heavyWeightDrillPipeThickness, 0)
       ..close()
-      ..moveTo(downholeConfig.drillPipeWidth + downholeConfig.chokeLineHLength + downholeConfig.casingWidth/2 - downholeConfig.drillPipeWidth/2, downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
-      ..relativeMoveTo(downholeConfig.heavyWeightDrillPipeWidth/2, 0)
-      ..relativeLineTo(-downholeConfig.heavyWeightDrillPipeWidth, 0)
+      ..moveTo(downholeConfig.drillPipeWidth + downholeConfig.chokeLineHLength + downholeConfig.casingID/2 - downholeConfig.drillPipeWidth/2, downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
+      ..relativeMoveTo(downholeConfig.heavyWeightDrillPipeThickness/2, 0)
+      ..relativeLineTo(-downholeConfig.heavyWeightDrillPipeThickness, 0)
       ..relativeLineTo(0, downholeConfig.heavyWeightDrillPipeHeight)
-      ..relativeLineTo(downholeConfig.heavyWeightDrillPipeWidth, 0)
+      ..relativeLineTo(downholeConfig.heavyWeightDrillPipeThickness, 0)
+      ..close();
+
+    Path hwdpJoints = Path()
+      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingID/2 - downholeConfig.drillPipeWidth/2, downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
+      ..relativeLineTo(0, -downholeConfig.heavyWeightDrillPipeJoint)
+      ..relativeLineTo(downholeConfig.heavyWeightDrillPipeThickness/2, 0)
+      ..relativeLineTo(0, downholeConfig.heavyWeightDrillPipeJoint)
+      ..close()
+      ..moveTo(downholeConfig.drillPipeWidth + downholeConfig.chokeLineHLength + downholeConfig.casingID/2 - downholeConfig.drillPipeWidth/2, downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
+      ..relativeLineTo(0, -downholeConfig.heavyWeightDrillPipeJoint)
+      ..relativeLineTo(-downholeConfig.heavyWeightDrillPipeThickness/2, 0)
+      ..relativeLineTo(0, downholeConfig.heavyWeightDrillPipeJoint)
       ..close();
 
     Path drillCollarPath = Path()
-      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingWidth/2 - downholeConfig.drillPipeWidth/2, downholeConfig.heavyWeightDrillPipeHeight + downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
-      ..relativeMoveTo(downholeConfig.drillCollarWidth/2, 0)
-      ..relativeLineTo(-downholeConfig.drillCollarWidth, 0)
+      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingID/2 - downholeConfig.drillPipeWidth/2, downholeConfig.heavyWeightDrillPipeHeight + downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
+      ..relativeMoveTo(downholeConfig.drillCollarThickness/2, 0)
+      ..relativeLineTo(-downholeConfig.drillCollarThickness, 0)
       ..relativeLineTo(0, downholeConfig.drillCollarHeight)
-      ..relativeLineTo(downholeConfig.drillCollarWidth, 0)
+      ..relativeLineTo(downholeConfig.drillCollarThickness, 0)
       ..close()
-      ..moveTo(downholeConfig.drillPipeWidth + downholeConfig.chokeLineHLength + downholeConfig.casingWidth/2 - downholeConfig.drillPipeWidth/2, downholeConfig.heavyWeightDrillPipeHeight + downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
-      ..relativeMoveTo(downholeConfig.drillCollarWidth/2, 0)
-      ..relativeLineTo(-downholeConfig.drillCollarWidth, 0)
+      ..moveTo(downholeConfig.drillPipeWidth + downholeConfig.chokeLineHLength + downholeConfig.casingID/2 - downholeConfig.drillPipeWidth/2, downholeConfig.heavyWeightDrillPipeHeight + downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
+      ..relativeMoveTo(downholeConfig.drillCollarThickness/2, 0)
+      ..relativeLineTo(-downholeConfig.drillCollarThickness, 0)
       ..relativeLineTo(0, downholeConfig.drillCollarHeight)
-      ..relativeLineTo(downholeConfig.drillCollarWidth, 0)
+      ..relativeLineTo(downholeConfig.drillCollarThickness, 0)
+      ..close();
+
+    Path drillCollarJoints = Path()
+      ..moveTo(downholeConfig.chokeLineHLength + downholeConfig.casingID/2 - downholeConfig.drillPipeWidth/2, downholeConfig.heavyWeightDrillPipeHeight + downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
+      ..relativeLineTo(0, -downholeConfig.drillCollarJoint)
+      ..relativeLineTo(downholeConfig.drillCollarThickness/2, 0)
+      ..relativeLineTo(0 , downholeConfig.drillCollarJoint)
+      ..close()
+      ..moveTo(downholeConfig.drillPipeWidth + downholeConfig.chokeLineHLength + downholeConfig.casingID/2 - downholeConfig.drillPipeWidth/2, downholeConfig.heavyWeightDrillPipeHeight + downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)
+      ..relativeLineTo(0, -downholeConfig.drillCollarJoint)
+      ..relativeLineTo(-downholeConfig.drillCollarThickness/2, 0)
+      ..relativeLineTo(0 , downholeConfig.drillCollarJoint)
       ..close();
 
     Paint paint = Paint()..style = PaintingStyle.stroke ..color = Colors.blue;
@@ -108,6 +153,10 @@ class DownholePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0
       ..shader = null
+      ..color = Color(0xff090501);
+
+    Paint casingThicknessPaint = Paint()
+      ..style = PaintingStyle.fill
       ..color = Color(0xff090501);
 
     Paint riserBorderPaint = Paint()
@@ -140,13 +189,17 @@ class DownholePainter extends CustomPainter {
 
     // canvas.drawPath(killCasingPath, paint);
     canvas.drawPath(killCasingPath, killCasingPaint);
+    canvas.drawPath(killLineBlocker, riserBlockerPaint);
     canvas.drawPath(riserBlocker, riserBlockerPaint);
     canvas.drawPath(riserPath, riserBorderPaint);
     canvas.drawPath(openHoleSectionPath, openHolePaint);
     canvas.drawPath(openHoleSectionPath, openHoleBorderPaint);
+    canvas.drawPath(casingThicknessPath, casingThicknessPaint);
     canvas.drawPath(drillPipePath, drillPipePaint);
     canvas.drawPath(hwdpPath, hwdpPaint);
+    canvas.drawPath(hwdpJoints, hwdpPaint);
     canvas.drawPath(drillCollarPath, hwdpPaint);
+    canvas.drawPath(drillCollarJoints, hwdpPaint);
   }
 
   @override
