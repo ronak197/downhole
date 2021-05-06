@@ -20,7 +20,8 @@ class _HomePageState extends State<HomePage> {
   double riserInnerDiameter;
   double riserBlockerHeight;
   double drillPipeLength;
-  double drillPipeWidth;
+  double drillPipeID;
+  double drillPipeOD;
   double openHoleSectionHeight;
   double openHoleSectionID;
   double casingLength;
@@ -46,7 +47,8 @@ class _HomePageState extends State<HomePage> {
         riserInnerDiameter: riserInnerDiameter,
         riserBlockerHeight: riserBlockerHeight,
         drillPipeLength: drillPipeLength,
-        drillPipeWidth: drillPipeWidth,
+        drillPipeID: drillPipeID,
+        drillPipeOD: drillPipeOD,
         openHoleSectionHeight: openHoleSectionHeight,
         openHoleSectionID: openHoleSectionID,
         casingLength: casingLength,
@@ -117,19 +119,19 @@ class _HomePageState extends State<HomePage> {
                   Text("Configuration", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),),
                   DownholeConfigBox(
                     title: "Downhole Width Scale Factor",
-                    subTitle: "Multiplier use to scale",
+                    subTitle: "Multiplier use to scale (Note: Use this to adjust downhole into the screen horizontally)",
                     hintText: "5",
                     configData: (s){
-                      widthScaleFactor = s == "" ? null : double.parse(s);
+                      widthScaleFactor = s == "" ? 5 : double.parse(s);
                       updateDownhole();
                     },
                   ),
                   DownholeConfigBox(
                     title: "Downhole Height Scale Factor",
-                    subTitle: "Multiplier use to scale",
+                    subTitle: "Multiplier use to scale (Note: Use this to adjust downhole into the screen vertically)",
                     hintText: "0.025",
                     configData: (s){
-                      heightScaleFactor = s == "" ? null : double.parse(s);
+                      heightScaleFactor = s == "" ? 0.025 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -138,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Feet",
                     hintText: "4000",
                     configData: (s){
-                      chokeLineVLength = s == "" ? null : double.parse(s);
+                      chokeLineVLength = s == "" ? 4000 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -147,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Inch",
                     hintText: "50",
                     configData: (s){
-                      chokeLineHLength = s == "" ? null : double.parse(s);
+                      chokeLineHLength = s == "" ? 50 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -156,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Inch",
                     hintText: "3",
                     configData: (s){
-                      chokeLineDiameter = s == "" ? null : double.parse(s);
+                      chokeLineDiameter = s == "" ? 3 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -165,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Inch",
                     hintText: "50",
                     configData: (s){
-                      riserInnerDiameter = s == "" ? null : double.parse(s);
+                      riserInnerDiameter = s == "" ? 50 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -174,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Feet",
                     hintText: "500",
                     configData: (s){
-                      riserBlockerHeight = s == "" ? null : double.parse(s);
+                      riserBlockerHeight = s == "" ? 500 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -183,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Feet",
                     hintText: "4000",
                     configData: (s){
-                      casingLength = s == "" ? null : double.parse(s);
+                      casingLength = s == "" ? 4000 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -192,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Inch",
                     hintText: "9.95",
                     configData: (s){
-                      casingID = s == "" ? null : double.parse(s);
+                      casingID = s == "" ? 9.95 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -201,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Inch",
                     hintText: "10.75",
                     configData: (s){
-                      casingOD = s == "" ? null : double.parse(s);
+                      casingOD = s == "" ? 10.75 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -210,8 +212,17 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Inch",
                     hintText: "8.5",
                     configData: (s){
-                      openHoleSectionID = s == "" ? null : double.parse(s);
+                      openHoleSectionID = s == "" ? 8.5 : double.parse(s);
                       updateDownhole();
+                    },
+                  ),
+                  DownholeConfigBox(
+                    title: "Drillpipe height",
+                    subTitle: "In Inch",
+                    hintText: ((downholeConfig.chokeLineVLength + downholeConfig.casingLength + downholeConfig.drillPipeOpenHoleHeight)/downholeConfig.heightScaleFactor).toString(),
+                    enable: false,
+                    configData: (s){
+
                     },
                   ),
                   DownholeConfigBox(
@@ -219,16 +230,25 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Inch",
                     hintText: "4.276",
                     configData: (s){
-                      drillPipeWidth = s == "" ? null : double.parse(s);
+                      drillPipeID = s == "" ? 4.276 : double.parse(s);
+                      updateDownhole();
+                    },
+                  ),
+                  DownholeConfigBox(
+                    title: "Drillpipe OD",
+                    subTitle: "In Inch",
+                    hintText: "5",
+                    configData: (s){
+                      drillPipeOD = s == "" ? 5 : double.parse(s);
                       updateDownhole();
                     },
                   ),
                   DownholeConfigBox(
                     title: "Drillpipe open hole height",
                     subTitle: "In Feet",
-                    hintText: "3160",
+                    hintText: "2760",
                     configData: (s){
-                      drillPipeOpenHoleHeight = s == "" ? null : double.parse(s);
+                      drillPipeOpenHoleHeight = s == "" ? 2760 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -237,25 +257,25 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Feet",
                     hintText: "240",
                     configData: (s){
-                      heavyWeightDrillPipeHeight = s == "" ? null : double.parse(s);
+                      heavyWeightDrillPipeHeight = s == "" ? 240 : double.parse(s);
                       updateDownhole();
                     },
                   ),
                   DownholeConfigBox(
                     title: "Heavy Weight Drill Pipe ID",
                     subTitle: "In Inch",
-                    hintText: "3.5",
+                    hintText: "3.3",
                     configData: (s){
-                      heavyWeightDrillPipeID = s == "" ? null : double.parse(s);
+                      heavyWeightDrillPipeID = s == "" ? 3.3 : double.parse(s);
                       updateDownhole();
                     },
                   ),
                   DownholeConfigBox(
                     title: "Heavy Weight Drill Pipe OD",
                     subTitle: "In Inch",
-                    hintText: "5.5",
+                    hintText: "5.6",
                     configData: (s){
-                      heavyWeightDrillPipeOD = s == "" ? null : double.parse(s);
+                      heavyWeightDrillPipeOD = s == "" ? 5.6 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -264,7 +284,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Feet",
                     hintText: "1000",
                     configData: (s){
-                      drillCollarHeight = s == "" ? null : double.parse(s);
+                      drillCollarHeight = s == "" ? 1000 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -273,7 +293,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Inch",
                     hintText: "2.78",
                     configData: (s){
-                      drillCollarID = s == "" ? null : double.parse(s);
+                      drillCollarID = s == "" ? 2.78 : double.parse(s);
                       updateDownhole();
                     },
                   ),
@@ -282,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                     subTitle: "In Inch",
                     hintText: "6.25",
                     configData: (s){
-                      drillCollarOD = s == "" ? null : double.parse(s);
+                      drillCollarOD = s == "" ? 6.25 : double.parse(s);
                       updateDownhole();
                     },
                   )

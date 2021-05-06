@@ -6,12 +6,14 @@ class DownholeConfigBox extends StatelessWidget {
   final String subTitle;
   final String hintText;
   final Function(String data) configData;
+  final bool enable;
 
   DownholeConfigBox({
     this.title,
     this.subTitle,
     this.hintText,
-    this.configData
+    this.configData,
+    this.enable = true
   });
 
   @override
@@ -21,6 +23,7 @@ class DownholeConfigBox extends StatelessWidget {
       child: Row(
         children: [
           Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
@@ -28,9 +31,11 @@ class DownholeConfigBox extends StatelessWidget {
             ],
           ),
           Expanded(
+            flex: 1,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: TextField(
+                  enabled: enable,
                   decoration: InputDecoration(
                       hintText: hintText
                   ),
