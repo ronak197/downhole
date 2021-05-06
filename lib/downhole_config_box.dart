@@ -22,18 +22,21 @@ class DownholeConfigBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10.0),
       child: Row(
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
-              Text(subTitle)
-            ],
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
+                Text(subTitle)
+              ],
+            ),
           ),
           Expanded(
             flex: 1,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextField(
                   enabled: enable,
                   decoration: InputDecoration(

@@ -53,7 +53,7 @@ class DownholeConfig{
     this.heightScaleFactor = 0.025,
     this.widthScaleFactor =  5,
     this.chokeLineVLength = 100,
-    this.chokeLineHLength = 250,
+    this.chokeLineHLength = 150,
     this.chokeLineDiameter = 15,
     this.killLineBlockerHeight = 12.5,
     this.riserInnerDiameter = 250,

@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                   DownholeConfigBox(
                     title: "Chokeline horizontal Length",
                     subTitle: "In Inch",
-                    hintText: "50",
+                    hintText: "30",
                     configData: (s){
                       chokeLineHLength = s == "" ? 50 : double.parse(s);
                       updateDownhole();
